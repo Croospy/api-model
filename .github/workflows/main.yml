@@ -3,7 +3,7 @@ name: ML Model Deployment
 on: push
 jobs:
   deploy:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Chekout repository
