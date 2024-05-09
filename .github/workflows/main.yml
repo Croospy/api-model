@@ -22,3 +22,13 @@ jobs:
 
       - name: Train and evaluate model
         run: python train/train.py 
+
+      - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.TOKEN }}
+        logout: true
+
+      - name: Push Docker image
+        run: docker push Croospy/api-titanic:latest
