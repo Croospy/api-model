@@ -9,7 +9,7 @@ app = FastAPI()
 @app.post("/titanic")
 def prediction_api(pclass: int, sex: int, age: int) -> bool:
     # Load model
-    titanic_model = joblib.load("train/model_titanic.joblib")
+    titanic_model = joblib.load("model_titanic.joblib")
 
     # predict
     x = [pclass, sex, age]
