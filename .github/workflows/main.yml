@@ -1,34 +1,40 @@
 name: ML Model Deployment
 
-on: push
+on: [push]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: docker
 
     steps:
-      - name: Chekout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-          
-      - name: Install dependencies 
+
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Test with pytest
         run: pytest
 
       - name: Train and evaluate model
-        run: python train/train.py 
+        run: python train/train.py
+
+      - name: Build Docker image
+        run: docker build -t hdakhli/api-titanic .
 
       - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.USER }}
-        password: ${{ secrets.TOKEN }}
-        logout: true
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.TOKEN }}
+          logout: true
 
       - name: Push Docker image
-        run: docker push Croospy/api-titanic:latest
+        run: docker push hdakhli/api-titanic:latest

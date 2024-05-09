@@ -1,10 +1,8 @@
 from unittest import TestCase
 
-
 import pandas as pd
 
 from train.train import clean_data
-
 
 
 class TestTrain(TestCase):
@@ -20,4 +18,3 @@ class TestTrain(TestCase):
 
         self.assertEqual(result_df.shape[0], 3)
         self.assertEqual(result_df['sex'][0], 0)
-
